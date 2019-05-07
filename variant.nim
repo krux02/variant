@@ -118,7 +118,7 @@ proc mangledNameAux(t: NimNode): string =
 proc mangledName(t: NimNode): string =
     mangledNameAux(getTypeImpl(t)[1])
 
-macro getMangledName(t: typed): string = mangledName(t)
+macro getMangledName(t: typed): string = newLit(mangledName(t))
 
 type TypeId* = Hash
 
@@ -132,7 +132,7 @@ macro getTypeId*(t: typed): TypeId =
         else:
             typeIds[h] = name
             break
-    return h
+    return newLit(h)
 
 const debugVariantTypes = defined(variantDebugTypes)
 
